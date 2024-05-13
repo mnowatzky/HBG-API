@@ -20,6 +20,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     runtimeOnly 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+    implementation 'com.jcraft:jsch:0.1.55'
+    implementation 'org.hibernate:hibernate-spatial:6.5.0.Final'
+    implementation 'org.locationtech.jts:jts-core'
+    //implementation 'com.bedatadriven:jackson-datatype-jts:2.2'
+    implementation("org.n52.jackson:jackson-datatype-jts:1.2.10")
 }
 
 tasks.named('test') {

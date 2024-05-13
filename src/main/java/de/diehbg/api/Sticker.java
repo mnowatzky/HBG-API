@@ -1,29 +1,28 @@
 package de.diehbg.api;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.locationtech.jts.geom.Point;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
+@Table(name = "stickers")
 public class Sticker {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private double latitude;
-    private double longitude;
+    private Point coords;
     private String name;
+    //@Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
     private LocalDateTime loggedAt;
     private String city;
     private String state;
     private String country;
 
-    Sticker() {}
-
-    Sticker(double latitude, double longitude, String name, LocalDateTime loggedAt, String city, String state, String country) {
-        this.latitude = latitude;
-        this.longitude = longitude;
+    Sticker(Point coords, String name, LocalDateTime loggedAt, String city, String state, String country) {
+        this.coords = coords;
         this.name = name;
         this.loggedAt = loggedAt;
         this.city = city;
@@ -31,20 +30,14 @@ public class Sticker {
         this.country = country;
     }
 
-    public double getLatitude() {
-        return latitude;
+    public Sticker() {}
+
+    public Point getCoords() {
+        return coords;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
+    public void setCoords(Point location) {
+        this.coords = location;
     }
 
     public String getName() {
@@ -101,19 +94,18 @@ public class Sticker {
         if (o == null || getClass() != o.getClass()) return false;
 
         Sticker sticker = (Sticker) o;
-        return Double.compare(getLatitude(), sticker.getLatitude()) == 0 && Double.compare(getLongitude(), sticker.getLongitude()) == 0 && getId().equals(sticker.getId()) && getName().equals(sticker.getName()) && getLoggedAt().equals(sticker.getLoggedAt()) && getCity().equals(sticker.getCity()) && getState().equals(sticker.getState()) && getCountry().equals(sticker.getCountry());
+        return getId().equals(sticker.getId()) && getCoords().equals(sticker.getCoords()) && getName().equals(sticker.getName()) && getLoggedAt().equals(sticker.getLoggedAt()) && Objects.equals(getCity(), sticker.getCity()) && Objects.equals(getState(), sticker.getState()) && Objects.equals(getCountry(), sticker.getCountry());
     }
 
     @Override
     public int hashCode() {
         int result = getId().hashCode();
-        result = 31 * result + Double.hashCode(getLatitude());
-        result = 31 * result + Double.hashCode(getLongitude());
+        result = 31 * result + getCoords().hashCode();
         result = 31 * result + getName().hashCode();
         result = 31 * result + getLoggedAt().hashCode();
-        result = 31 * result + getCity().hashCode();
-        result = 31 * result + getState().hashCode();
-        result = 31 * result + getCountry().hashCode();
+        result = 31 * result + Objects.hashCode(getCity());
+        result = 31 * result + Objects.hashCode(getState());
+        result = 31 * result + Objects.hashCode(getCountry());
         return result;
     }
 
@@ -121,8 +113,7 @@ public class Sticker {
     public String toString() {
         return "Sticker{" +
                 "id=" + id +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude +
+                ", location=" + coords +
                 ", name='" + name + '\'' +
                 ", loggedAt=" + loggedAt +
                 ", city='" + city + '\'' +
