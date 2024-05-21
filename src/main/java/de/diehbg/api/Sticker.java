@@ -2,7 +2,6 @@ package de.diehbg.api;
 
 import jakarta.persistence.*;
 import org.locationtech.jts.geom.Point;
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -15,7 +14,6 @@ public class Sticker {
     private Long id;
     private Point coords;
     private String name;
-    //@Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
     private LocalDateTime loggedAt;
     private String city;
     private String state;
