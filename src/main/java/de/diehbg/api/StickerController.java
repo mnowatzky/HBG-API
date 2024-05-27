@@ -1,5 +1,6 @@
 package de.diehbg.api;
 
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -57,7 +58,7 @@ public class StickerController {
     }
 
     @PostMapping("/stickers")
-    Sticker insert(@RequestBody Sticker sticker) {
+    Sticker insert(@Valid @RequestBody Sticker sticker) {
         return repository.save(sticker);
     }
 

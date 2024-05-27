@@ -8,7 +8,7 @@ group = 'de.diehbg'
 version = '0.0.1-SNAPSHOT'
 
 java {
-    sourceCompatibility = '22'
+    sourceCompatibility = '21'
 }
 
 repositories {
@@ -18,6 +18,9 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.projectlombok:lombok:1.18.32'
+    annotationProcessor 'org.projectlombok:lombok:1.18.32'
     runtimeOnly 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     runtimeOnly 'com.mysql:mysql-connector-j'
@@ -25,7 +28,6 @@ dependencies {
     implementation 'com.jcraft:jsch:0.1.55'
     implementation 'org.hibernate:hibernate-spatial:6.5.0.Final'
     implementation 'org.locationtech.jts:jts-core'
-    //implementation 'com.bedatadriven:jackson-datatype-jts:2.2'
     implementation("org.n52.jackson:jackson-datatype-jts:1.2.10")
 }
 
